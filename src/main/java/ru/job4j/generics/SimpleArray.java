@@ -1,17 +1,12 @@
 package ru.job4j.generics;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class SimpleArray<T> implements Iterable<T> {
 
     private final Object[] container;
     private int ids = 0;
-    private int size = 0;
     public SimpleArray(int count) {
-        size = count;
         container = new Object[count];
     }
 
@@ -38,6 +33,20 @@ public class SimpleArray<T> implements Iterable<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return (Iterator<T>) Arrays.stream(container).iterator();
+        return new Iterator<>() {
+            private int index = 0;
+            @Override
+            public boolean hasNext() {
+                return index < ids;
+            }
+
+            @Override
+            public T next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                return (T) container[index++];
+            }
+        };
     }
 }
