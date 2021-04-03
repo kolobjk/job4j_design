@@ -16,9 +16,9 @@ public class LinkedList<T> implements Iterable<T> {
         }
     }
 
-    transient int size = 0;
-    transient Node<T> first;
-    transient Node<T> last;
+    private int size = 0;
+    private Node<T> first;
+    private Node<T> last;
     private int modCount = 0;
 
     public T get(int index) {
@@ -64,6 +64,7 @@ public class LinkedList<T> implements Iterable<T> {
                 }
                 T returnItem = currentNode.item;
                 currentNode = currentNode.next;
+                index++;
                 return returnItem;
             }
         };
