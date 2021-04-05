@@ -23,7 +23,12 @@ public class SimpleArray<T> implements Iterable<T> {
     }
 
     public boolean contains(T model) {
-        return Arrays.stream(container).anyMatch(it -> it == model);
+        for (int i = 0 ; i < pointer; i++) {
+            if (Objects.equals(model, container[i])) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void add(T model) {

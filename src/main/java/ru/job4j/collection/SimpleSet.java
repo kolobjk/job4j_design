@@ -8,7 +8,7 @@ public class SimpleSet<T> {
     private SimpleArray<T> set = new SimpleArray<>();
 
     public boolean add(T value) {
-        if (!set.contains(value) || set.length() == 0) {
+        if (!set.contains(value)) {
             set.add(value);
             return true;
         }
