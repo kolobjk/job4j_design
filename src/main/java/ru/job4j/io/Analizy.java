@@ -4,11 +4,14 @@ import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.PrintWriter;
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Analizy {
     public void unavailable(String source, String target) {
+        ArrayList<String> result = new ArrayList<>();
         try (BufferedReader read = new BufferedReader(new FileReader(source))) {
             String thisLine;
             String firstTime = null;
@@ -20,14 +23,17 @@ public class Analizy {
                     }
                 } else {
                     if (firstTime != null) {
-                        try (PrintWriter out = new PrintWriter(new FileOutputStream(target, true))) {
-                            out.println(firstTime + ";" + splitLine[1]);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                        result.add(firstTime + ";" + splitLine[1]);
                         firstTime = null;
                     }
                 }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try (PrintWriter out = new PrintWriter(new FileOutputStream(target, true))) {
+            for (String in : result) {
+                out.println(in);
             }
         } catch (Exception e) {
             e.printStackTrace();
