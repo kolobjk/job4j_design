@@ -10,6 +10,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Analizy {
+    public void printToFile(String target, ArrayList<String> result) {
+        try (PrintWriter out = new PrintWriter(new FileOutputStream(target, true))) {
+            for (String in : result) {
+                out.println(in);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     public void unavailable(String source, String target) {
         ArrayList<String> result = new ArrayList<>();
         try (BufferedReader read = new BufferedReader(new FileReader(source))) {
@@ -28,13 +37,7 @@ public class Analizy {
                     }
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try (PrintWriter out = new PrintWriter(new FileOutputStream(target, true))) {
-            for (String in : result) {
-                out.println(in);
-            }
+            printToFile(target, result);
         } catch (Exception e) {
             e.printStackTrace();
         }
