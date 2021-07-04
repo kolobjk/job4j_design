@@ -23,9 +23,13 @@ public class ArgsName {
         values.putAll(Arrays.stream(args)
                 .filter(v -> !v.equals(""))
                 .map(s -> s.split("=", 2))
+                .filter(v -> {
+                    if (v[0] == null || v[0].trim().substring(1).equals("") || v[0] == null || v[1].trim().equals("")) {
+                        throw new IllegalArgumentException("Key or Value is null");
+                    }
+                    return true;
+                })
                 .collect(Collectors.toMap(a -> a[0].trim().substring(1), a -> a.length > 1 ? a[1].trim() : null)));
-        checkMap();
-
     }
 
     public void checkMap() throws IllegalArgumentException {
